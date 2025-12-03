@@ -1,0 +1,40 @@
+databaseChangeLog:
+  - changeSet:
+      id: 01-create-devices-table
+      author: naveen
+      changes:
+        - createTable:
+            tableName: devices
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: brand
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: state
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: creation_time
+                  type: datetime(6)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: update_time
+                  type: datetime(6)
+                  constraints:
+                    nullable: true
