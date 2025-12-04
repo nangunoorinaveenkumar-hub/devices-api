@@ -5,6 +5,7 @@ spring:
     url: jdbc:mysql://localhost:3306/devicesdb?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
     username: root
     password: password
+    driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
       ddl-auto: none
@@ -12,6 +13,9 @@ spring:
 
 liquibase:
   change-log: classpath:db/changelog/db.changelog-master.yaml
+
+api:
+  key: 3fa85f64-5717-4562-b3fc-2c963f66afa6-DEVKEY-92A7D1
 
 server:
   port: 8080

@@ -13,6 +13,7 @@ import java.time.OffsetDateTime;
 @AllArgsConstructor
 @Builder
 @Entity
+@Table(name = "devices")
 public class Device {
 
     @Id
@@ -26,9 +27,10 @@ public class Device {
     private DeviceState state;
 
     @CreatedDate
-    @Column(updatable = false)
+    @Column(updatable = false,  nullable = false)
     private OffsetDateTime creationTime;
 
     @LastModifiedDate
+    @Column(nullable = false)
     private OffsetDateTime updateTime;
 }
