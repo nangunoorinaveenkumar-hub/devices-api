@@ -20,6 +20,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class DeviceService {
 
+    public static final String DEVICE_NOT_FOUND_WITH_ID = "Device not found with id: ";
     private final DeviceRepository repository;
     private final DeviceConverter deviceConverter;
 
@@ -36,7 +37,7 @@ public class DeviceService {
 
     public Device updateDevice(final Long id, final DeviceRequest request) {
         final Device device = repository.findById(id)
-                .orElseThrow(() -> new DeviceNotFoundException("Device not found with id: " + id));
+                .orElseThrow(() -> new DeviceNotFoundException(DEVICE_NOT_FOUND_WITH_ID + id));
 
         DeviceValidator.validateUpdate(device, request);
 
@@ -60,7 +61,7 @@ public class DeviceService {
 
     public void deleteDevice(final Long id) {
         final Device device = repository.findById(id)
-                .orElseThrow(() -> new DeviceNotFoundException("Device not found with id: " + id));
+                .orElseThrow(() -> new DeviceNotFoundException(DEVICE_NOT_FOUND_WITH_ID + id));
 
         DeviceValidator.validateDelete(device);
 
@@ -71,7 +72,7 @@ public class DeviceService {
     @Transactional(readOnly = true)
     public Device getDevice(Long id) {
         return repository.findById(id)
-                .orElseThrow(() -> new DeviceNotFoundException("Device not found with id: " + id));
+                .orElseThrow(() -> new DeviceNotFoundException(DEVICE_NOT_FOUND_WITH_ID + id));
     }
 
     @Transactional(readOnly = true)
