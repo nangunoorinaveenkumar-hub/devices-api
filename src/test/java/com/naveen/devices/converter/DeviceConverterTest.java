@@ -25,9 +25,9 @@ class DeviceConverterTest {
         final Device device = converter.toEntity(request);
 
         assertThat(device).isNotNull();
-        assertThat(device.getName()).isEqualTo("iPhone");
-        assertThat(device.getBrand()).isEqualTo("Apple");
-        assertThat(device.getState()).isEqualTo(DeviceState.AVAILABLE);
+        assertThat(device.getName()).isEqualTo(request.getName());
+        assertThat(device.getBrand()).isEqualTo(request.getBrand());
+        assertThat(device.getState()).isEqualTo(request.getState());
     }
 
     @Test
@@ -66,7 +66,7 @@ class DeviceConverterTest {
 
         converter.updateEntity(request, device);
 
-        assertThat(device.getName()).isEqualTo("Updated Name");
+        assertThat(device.getName()).isEqualTo(request.getName());
         assertThat(device.getBrand()).isEqualTo("BrandX");
         assertThat(device.getState()).isEqualTo(DeviceState.AVAILABLE);
     }
@@ -82,7 +82,7 @@ class DeviceConverterTest {
 
         converter.updateEntity(request, device);
 
-        assertThat(device.getBrand()).isEqualTo("NewBrand");
+        assertThat(device.getBrand()).isEqualTo(request.getBrand());
         assertThat(device.getName()).isEqualTo("Name");
         assertThat(device.getState()).isEqualTo(DeviceState.IN_USE);
     }
@@ -99,7 +99,7 @@ class DeviceConverterTest {
 
         converter.updateEntity(request, device);
 
-        assertThat(device.getState()).isEqualTo(DeviceState.INACTIVE);
+        assertThat(device.getState()).isEqualTo(request.getState());
     }
 
     @Test

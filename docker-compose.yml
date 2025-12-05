@@ -1,16 +1,60 @@
 version: '3.8'
 
 services:
-  db:
+  # MySQL service
+  mysql:
     image: mysql:8.0
-    container_name: devices-db
+    container_name: devices-mysql
     environment:
       MYSQL_ROOT_PASSWORD: password
       MYSQL_DATABASE: devicesdb
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
     ports:
       - "3306:3306"
     volumes:
-      - db-data:/var/lib/mysql
+      - mysql-data:/var/lib/mysql
+    networks:
+      - devices-net
+    profiles:
+      - prod
+      - dev
+
+  # Devices API service
+  devices-api:
+    build: .
+    container_name: devices-api
+    depends_on:
+      - mysql
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/devicesdb
+      SPRING_DATASOURCE_USERNAME: user
+      SPRING_DATASOURCE_PASSWORD: password
+      API_KEY: 3fa85f64-5717-4562-b3fc-2c963f66afa6-DEVKEY-92A7D1
+    networks:
+      - devices-net
+    profiles:
+      - prod
+
+  # H2 container for local integration tests (optional)
+  # Only for local development if you want isolated DB for IT tests
+  h2:
+    image: oscarfonts/h2:1.4.200
+    container_name: devices-h2
+    ports:
+      - "9092:9092"
+    environment:
+      H2_OPTIONS: "-tcp -tcpAllowOthers -web -webAllowOthers"
+    networks:
+      - devices-net
+    profiles:
+      - dev
 
 volumes:
-  db-data:
+  mysql-data:
+
+networks:
+  devices-net:

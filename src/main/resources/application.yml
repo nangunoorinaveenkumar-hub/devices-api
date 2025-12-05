@@ -8,7 +8,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
-      ddl-auto: none
+      ddl-auto: update
     show-sql: true
 
 liquibase:
@@ -19,4 +19,3 @@ api:
 
 server:
   port: 8080
-

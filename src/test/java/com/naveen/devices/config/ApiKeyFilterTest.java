@@ -72,8 +72,6 @@ class ApiKeyFilterTest {
         }
     }
 
-    // ---------- Helper classes ----------
-
     static class MockHttpServletRequest extends org.springframework.mock.web.MockHttpServletRequest {}
 
     static class MockHttpServletResponse extends org.springframework.mock.web.MockHttpServletResponse {}
@@ -86,7 +84,7 @@ class ApiKeyFilterTest {
         }
 
         @Override
-        public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse) throws IOException, ServletException {
+        public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse) {
             chainCalled = true;
         }
     }
